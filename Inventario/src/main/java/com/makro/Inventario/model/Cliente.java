@@ -25,9 +25,13 @@ public class Cliente {
     @Column(nullable = false,length = 9)
     private String telefono;
 
+    @Column(nullable = false,length = 8, unique = true)
+    private String dni;
+
     public Cliente(DTOAgregarCliente data) {
         this.nombre = data.nombre();
         this.direccion = data.direccion();
         this.telefono = data.telefono();
+        this.dni = data.dni();
     }
 }
