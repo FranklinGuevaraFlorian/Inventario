@@ -18,21 +18,37 @@ public class ClienteService implements ClienteInterface{
     }
     @Override
     public Cliente agregar(Cliente cliente) {
-        return clienteRepository.save(cliente);
-    }
-
-    @Override
-    public Cliente eliminar(Integer id) {
+        if(buscar(cliente.getDni()) != null){
+            return clienteRepository.save(cliente);
+        }
         return null;
     }
 
     @Override
-    public Cliente modificar(Cliente cliente) {
+    public Cliente eliminar(String dni) {
+        Cliente cliente = buscar(dni);
+        if(cliente != null){
+            this.clienteRepository.delete(cliente);
+        }
+        return null;
+    }
+
+    @Override
+    public Cliente modificar(Cliente nuevoCliente) {
+        Cliente cliente = buscar(nuevoCliente.getDni());
+        if(cliente != null){
+           cliente.actualizar(nuevoCliente);
+        }
         return null;
     }
 
     @Override
     public Page<Cliente> listar(Pageable pageable) {
         return this.clienteRepository.findAll(pageable);
+    }
+
+    @Override
+    public Cliente buscar(String dni) {
+        return this.clienteRepository.getReferenceByDni(dni);
     }
 }

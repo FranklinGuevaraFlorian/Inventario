@@ -7,7 +7,9 @@ import com.makro.Inventario.service.cliente.ClienteInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,5 +31,17 @@ public class ClienteController {
     @GetMapping("/listar-cliente")
     public Page<DTOListarCliente> listar(Pageable pageable){
         return clienteInterface.listar(pageable).map(DTOListarCliente::new);
+    }
+    @DeleteMapping("/eliminar/{dni}")
+    @Transactional
+    public ResponseEntity<?> eliminar(@PathVariable String dni){
+        Cliente cliente = this.clienteInterface.eliminar(dni);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+    @PutMapping("/actualizar")
+    @Transactional
+    public ResponseEntity<?> modificar(@RequestBody DTOAgregarCliente data){
+        Cliente cliente = this.clienteInterface.modificar(new Cliente(data));
+        return ResponseEntity.ok(cliente);
     }
 }

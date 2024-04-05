@@ -34,4 +34,16 @@ public class Cliente {
         this.telefono = data.telefono();
         this.dni = data.dni();
     }
+
+    public void actualizar(Cliente nuevoCliente) {
+        if(nuevoCliente.getTelefono() != null){
+            this.telefono = nuevoCliente.telefono;
+        }
+        if(nuevoCliente.getNombre() != null){
+            this.nombre = nuevoCliente.nombre;
+        }
+        if(nuevoCliente.getDireccion() != null){
+            this.direccion = nuevoCliente.direccion;
+        }
+    }
 }

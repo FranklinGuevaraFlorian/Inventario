@@ -8,7 +8,8 @@ import org.springframework.data.domain.Pageable;
 public interface ClienteInterface {
 
     public Cliente agregar(Cliente cliente);
-    public Cliente eliminar(Integer id);
+    public Cliente eliminar(String dni);
     public Cliente modificar(Cliente cliente);
     public Page<Cliente> listar(Pageable pageable);
+    public Cliente buscar(String dni);
 }
